@@ -1,11 +1,3 @@
-
-window.addEventListener('message', e => {
-  const data = e.data
-  if (data.type === 'log') {
-     console.log(data.args[0])
-  }
-});
-
 function getUserCode() {
   return htmlEditor.getValue() + "\n" + "<style>" + "\n" + cssEditor.getValue() + "\n" + "</style>" + "\n" +  "<script>" + "\n" + jsEditor.getValue() + "\n" + "</script>";
 }
@@ -21,15 +13,17 @@ function update() {
   // //getting value from editor and puts in the iframe
   // code.write(getUserCode());
   // code.close();
+  let scripen = "const originalLog = console.log;\nconsole.log = (...args) => {\nparent.window.postMessage({ type: 'log', args: args }, '*')\noriginalLog(...args)\n};"
   code.write("<!DOCTYPE html>");
   code.write("<html>");
   code.write("<head>");
-  code.write("<style type='text/css'>" + cssEditor.getValue() + "</style>");
-  code.write("<script type='text/javascript'>window.onload = function() {" + jsEditor.getValue() + "}</script>");         
+  code.write("<style type='text/css'>" + cssEditor.getValue() + "</style>");    
   code.write("</head>");
   code.write("<body>");
   code.write(htmlEditor.getValue());
-  //code.write("<script type='text/javascript'>" + jsEditor.getValue() + "</script>");
+  code.write("<script type='text/javascript'>" + scripen + "</script>");
+  code.write("<script type='text/javascript'>window.onload = function() {" + jsEditor.getValue() + "}</script>");
+  //code.write("<script type='text/javascript'>window.onload = function() {" + scripen + "}</script>");
   code.write("</body>");
   code.write("</html>");
   code.close();
@@ -123,9 +117,9 @@ function loadJSEditor() {
   //sample text
   jsEditor.setValue(defaultJSValue,1); //1 = moves cursor to end
   // when something changed in editor update is called
-  // jsEditor.getSession().on('change', function() {
-  //     update();
-  // });
+  jsEditor.getSession().on('change', function() {
+      update();
+  });
   // puts cursor in the editor
   jsEditor.focus();
   
@@ -235,6 +229,13 @@ function probarCodigo(){
       }
   }
 })();
+
+window.addEventListener('message', e => {
+  const data = e.data
+  if (data.type === 'log') {
+     console.log(data.args[0])
+  }
+});
 
 setupEditor()
 
