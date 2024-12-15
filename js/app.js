@@ -39,7 +39,7 @@ function update() {
 }
 function loadHTMLEditor() {
   if (localStorage.getItem('htmlcode') === null) {
-    defaultHTMLValue = "<!--    Codigo HTML    -->zzzzz/";
+    defaultHTMLValue = "<!--    Codigo HTML    -->";
   }else{
     defaultHTMLValue = localStorage.getItem("htmlcode")
   }
