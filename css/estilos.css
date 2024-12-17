@@ -20,11 +20,12 @@ html,body {
 #iframe {
   border:1px solid black;
   background:rgb(247, 254, 255);
+  
   position: absolute;
   /* display:inline-block;  */
   right: 2%;
   top:4%;
-  height:80%;
+  height:93%;
   width:48%;
   /* what is inline */  
 }
@@ -42,7 +43,7 @@ html,body {
   position: absolute;
   /* background: blue; */
   top:4%;
-  height:80%;
+  height:93%;
   width:47%;
 }
 #htmlEditor {  
@@ -77,10 +78,7 @@ html,body {
   left:30%;
 }
 .resLabel {
-  right:30%;
-}
-.conLabel {
-  right:10%;
+  right:25%;
 }
 #text {
   color:rgb(241, 17, 17);
@@ -115,40 +113,4 @@ html,body {
 }
 .botones{
   display: flex;
-}
-
-#runcheck{
-  position: absolute;
-  bottom: 3%;
-  right: 35%;
-  height:10%;
-  width:47%;
-  justify-content: center;
-
-}
-
-#runer{
-  height: 50%;
-  width: 30%;
-  border-color: black;
-  background-color: DodgerBlue;
-}
-
-#console{
-  position: absolute;
-  bottom: 3%;
-  right: 1%;
-  height:10%;
-  width:47%;
-  justify-content: center;
-}
-
-#consolelog{
-  color: rgb(0, 0, 0);
-  padding: 0%;
-  height: 100%;
-  width: 95%;
-  border-color: black;
-  background-color: rgb(160, 157, 234) !important;
-  overflow: auto;
 }
