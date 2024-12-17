@@ -1,39 +1,20 @@
 function getUserCode() {
   return htmlEditor.getValue() + "\n" + "<style>" + "\n" + cssEditor.getValue() + "\n" + "</style>" + "\n" +  "<script>" + "\n" + jsEditor.getValue() + "\n" + "</script>";
 }
-
-function play(){
-  update()
-}
-
 function update() {
   //this is the content of iframe
   var code = document.getElementById('iframe').contentWindow.document;
   code.open();
-  // //getting value from editor and puts in the iframe
-  // code.write(getUserCode());
-  // code.close();
-  let scripen = "const originalLog = console.log;\nconsole.log = (...args) => {\nparent.window.postMessage({ type: 'log', args: args }, '*')\noriginalLog(...args)\n};"
-  code.write("<!DOCTYPE html>");
-  code.write("<html>");
-  code.write("<head>");
-  code.write("<style type='text/css'>" + cssEditor.getValue() + "</style>");    
-  code.write("</head>");
-  code.write("<body>");
-  code.write(htmlEditor.getValue());
-  code.write("<script type='text/javascript'>" + scripen + "</script>");
-  code.write("<script type='text/javascript'>window.onload = function() {" + jsEditor.getValue() + "}</script>");
-  //code.write("<script type='text/javascript'>window.onload = function() {" + scripen + "}</script>");
-  code.write("</body>");
-  code.write("</html>");
+  //getting value from editor and puts in the iframe
+  code.write(getUserCode());
   code.close();
   localStorage.setItem("htmlcode", htmlEditor.getValue())
   localStorage.setItem("jscode", jsEditor.getValue())
   localStorage.setItem("csscode", cssEditor.getValue())
 }
 function loadHTMLEditor() {
-  if (localStorage.getItem('htmlcode') === null) {
-    defaultHTMLValue = "<!--    Codigo HTML    -->";
+  if (localStorage.getItem('csscode') === null) {
+    defaultHTMLValue = ""
   }else{
     defaultHTMLValue = localStorage.getItem("htmlcode")
   }
@@ -67,7 +48,7 @@ function loadHTMLEditor() {
 }
 function loadCSSEditor() {
   if (localStorage.getItem('csscode') === null) {
-      defaultCSSValue = "/*    Codigo CSS    */";
+      defaultCSSValue = ""
   }else{
       defaultCSSValue = localStorage.getItem("csscode")
   }
@@ -101,10 +82,9 @@ function loadCSSEditor() {
   cssEditor.setShowPrintMargin(false);
   //cssEditor.setBehavioursEnabled(false);
 }
-
 function loadJSEditor() {
-  if (localStorage.getItem('jscode') === null) {
-      defaultJSValue = "/*    Codigo JS    */";
+  if (localStorage.getItem('csscode') === null) {
+      defaultJSValue = ""
   }else{
       defaultJSValue = localStorage.getItem("jscode")
   }
@@ -136,14 +116,53 @@ function loadJSEditor() {
   jsEditor.setShowPrintMargin(false);
   //htmlEditor.setBehavioursEnabled(false);
 }
-
 function setupEditor() {
   loadHTMLEditor();
   loadCSSEditor();
   loadJSEditor();
+  update();
 }
 function ready() {
   setupEditor();
+}
+
+function minimizeIframe() {
+  //First make Iframe height larger
+  let iframe = document.getElementById("iframe");
+  iframe.style.height = "98%";
+  iframe.style.width = "100%";
+  //Next equate all 3 editors dimensions to 0
+  let htmlEditor = document.getElementById("htmlEditor");
+  htmlEditor.style.height = "0%";
+  htmlEditor.style.width = "0%";
+  let cssEditor = document.getElementById("cssEditor");
+  cssEditor.style.height = "0%";
+  cssEditor.style.width = "0%";
+  let jsEditor = document.getElementById("jsEditor");
+  jsEditor.style.height = "0%";
+  jsEditor.style.width = "0%";
+  //Make editors height 5% which has labels and buttons
+  let allEditors = document.getElementById("editors");
+  allEditors.style.height = "5%";
+  allEditors.style.width = "100%";
+}
+function maximizeIFrame() {
+  //Going in reverse order from maximizeFrame() to reset all elements to their original dimensions
+  let editors = document.getElementById("editors");
+  editors.style.height = "50%";
+  editors.style.width = "100%";
+  let htmlEditor = document.getElementById("htmlEditor");
+  htmlEditor.style.height = "90%";
+  htmlEditor.style.width = "32%";
+  let cssEditor = document.getElementById("cssEditor");
+  cssEditor.style.height = "90%";
+  cssEditor.style.width = "32%";
+  let jsEditor = document.getElementById("jsEditor");
+  jsEditor.style.height = "90%";
+  jsEditor.style.width = "32%";
+  var iframe = document.getElementById("iframe");
+  iframe.style.height = "50%";
+  iframe.style.width = "100%";
 }
 
 //Download Code File
@@ -196,47 +215,3 @@ function mostrarJS(){
   cssEditor.style.display = "none";
   jsEditor.style.display = "block";
 }
-
-function mostrarCon(){
-  let console = document.getElementById("console");
-  let iframein = document.getElementById("iframe");
-  console.setAttribute("style","height:50%")
-  iframein.setAttribute("style","height:40%")
-
-}
-
-function mostrarRes(){
-  let console = document.getElementById("console");
-  let iframein = document.getElementById("iframe");
-  console.setAttribute("style","height:10%")
-  iframein.setAttribute("style","height:80%")
-}
-
-function probarCodigo(){
-  console.log("test")
-}
-
-(function () {
-  var old = console.log;
-  var logger = document.getElementById('consolelog');
-  console.log = function (message) {
-      if (typeof message == 'object') {
-          logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-          $('#consolelog').animate({scrollTop: $('#consolelog').prop("scrollHeight")}, 500);
-      } else {
-          logger.innerHTML += message + '<br />';
-          $('#consolelog').animate({scrollTop: $('#consolelog').prop("scrollHeight")}, 500);
-      }
-  }
-})();
-
-window.addEventListener('message', e => {
-  const data = e.data
-  if (data.type === 'log') {
-     console.log(data.args[0])
-  }
-});
-
-setupEditor()
-
-play()
