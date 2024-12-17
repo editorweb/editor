@@ -18,20 +18,14 @@
     <body onload='ready()'>
         <div id='container'>
             <div id='editors'>
-                <div class = 'fa fa-html5 htmlLabel labels' onclick="mostrarHTML()" style="font-size:23px;color:rgb(55, 0, 255)" id='labels1'>
+                <div class = 'fa fa-html5 htmlLabel labels' style="font-size:23px;color:rgb(55, 0, 255)" id='labels1'>
                        <span class="text" id='text1'>HTML</span>
-                </div>
-                <div class = 'fa fa-css3 cssLabel labels' onclick="mostrarCSS()" style="font-size:23px;color:rgb(55, 0, 255)" id='labels2'>
-                    <span class="text" id='text2'>CSS</span>
-                </div>
-                <div class = 'fa fa-jsfiddle jsLabel labels' onclick="mostrarJS()" style="font-size:23px;color:rgb(55, 0, 255)" id='labels3'>
-                     <span class="text" id='text3'>Javascript</span>
                 </div>
                 <div class = 'fa fa-jsfiddle resLabel labels' style="font-size:23px;color:rgb(55, 0, 255)" id='labels4'>
                     <span class="text" id='text4'>Resultado</span>
                </div>
                 <div class="botones">
-                    <button type="button" class="button miPlay"><i class='fa fa-play'></i></button>
+                    <button type="button" class="button miPlay" onclick="update()"><i class='fa fa-play'></i></button>
                     <button type="button" class="button downloadCode" onclick="downloadCode()"><i class='fa fa-download'></i></button>
                     <button type="button" class="button  minButton"><i class='fa fa-window-minimize'></i></button>
                     <button type="button" class="button maxButton"><i class='fa fa-window-maximize'></i></button>
@@ -40,10 +34,11 @@
 
                 <div id="interfaz">
                     <div class='editor' id='htmlEditor'></div>
-                    <div class='editor' id='cssEditor'></div>
-                    <div class='editor' id='jsEditor'></div>
-                    <iframe id='iframe' frameBorder="0">
-                    </iframe>
+                    <div id="iframewrapper">
+
+                    </div>
+                    <!-- <iframe id='iframe' frameBorder="0">
+                    </iframe> -->
                 </div>
                    
             

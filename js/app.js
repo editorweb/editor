@@ -2,15 +2,31 @@ function getUserCode() {
   return htmlEditor.getValue() + "\n" + "<style>" + "\n" + cssEditor.getValue() + "\n" + "</style>" + "\n" +  "<script>" + "\n" + jsEditor.getValue() + "\n" + "</script>";
 }
 function update() {
-  //this is the content of iframe
-  var code = document.getElementById('iframe').contentWindow.document;
-  code.open();
-  //getting value from editor and puts in the iframe
-  code.write(getUserCode());
-  code.close();
-  localStorage.setItem("htmlcode", htmlEditor.getValue())
-  localStorage.setItem("jscode", jsEditor.getValue())
-  localStorage.setItem("csscode", cssEditor.getValue())
+    var text =  htmlEditor.getValue();
+    var ifr = document.createElement("iframe");
+    ifr.setAttribute("frameborder", "0");
+    ifr.setAttribute("id", "iframeResult");
+    ifr.setAttribute("name", "iframeResult");
+    document.getElementById("iframewrapper").innerHTML = "";
+    document.getElementById("iframewrapper").appendChild(ifr);
+    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+    ifrw.document.open();
+    ifrw.document.write(text);
+    ifrw.document.close(); 
+    if (ifrw.document.body && !ifrw.document.body.isContentEditable) {
+        ifrw.document.body.contentEditable = true;
+        ifrw.document.body.contentEditable = false;
+    }
+    localStorage.setItem("htmlcode",text);
+  // //this is the content of iframe
+  // var code = document.getElementById('iframe').contentWindow.document;
+  // code.open();
+  // //getting value from editor and puts in the iframe
+  // code.write(getUserCode());
+  // code.close();
+  // localStorage.setItem("htmlcode", htmlEditor.getValue())
+  // localStorage.setItem("jscode", jsEditor.getValue())
+  // localStorage.setItem("csscode", cssEditor.getValue())
 }
 function loadHTMLEditor() {
   if (localStorage.getItem('csscode') === null) {
@@ -118,8 +134,8 @@ function loadJSEditor() {
 }
 function setupEditor() {
   loadHTMLEditor();
-  loadCSSEditor();
-  loadJSEditor();
+  //loadCSSEditor();
+  //loadJSEditor();
   update();
 }
 function ready() {
@@ -129,7 +145,7 @@ function ready() {
 //Download Code File
 function downloadCode() {
    //1.Create a blob
-   const userCode = getUserCode();
+   const userCode = htmlEditor.getValue();
    const blob = new Blob([userCode], {type: "text/html"});
    downloadFile(blob,"index.html");
 }

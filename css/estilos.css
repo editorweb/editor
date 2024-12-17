@@ -17,7 +17,7 @@ html,body {
   white-space:nowrap;
   overflow:hidden;
 }
-#iframe {
+#iframeResult {
   border:1px solid black;
   background:rgb(247, 254, 255);
   
