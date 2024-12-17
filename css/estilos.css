@@ -61,7 +61,12 @@ html,body {
   /* left: 65%; */
   /* cursor: col-resize; */
 }
-#labels {
+
+#text1{
+  background-color: green;
+}
+
+.labels {
   position: absolute;
   top:0%;
   height:8%;
@@ -80,7 +85,7 @@ html,body {
 .resLabel {
   right:25%;
 }
-#text {
+.text {
   color:rgb(241, 17, 17);
   font-family: "Comic Sans MS", "Comic Sans", cursive;
 }

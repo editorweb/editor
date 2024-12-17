@@ -126,45 +126,6 @@ function ready() {
   setupEditor();
 }
 
-function minimizeIframe() {
-  //First make Iframe height larger
-  let iframe = document.getElementById("iframe");
-  iframe.style.height = "98%";
-  iframe.style.width = "100%";
-  //Next equate all 3 editors dimensions to 0
-  let htmlEditor = document.getElementById("htmlEditor");
-  htmlEditor.style.height = "0%";
-  htmlEditor.style.width = "0%";
-  let cssEditor = document.getElementById("cssEditor");
-  cssEditor.style.height = "0%";
-  cssEditor.style.width = "0%";
-  let jsEditor = document.getElementById("jsEditor");
-  jsEditor.style.height = "0%";
-  jsEditor.style.width = "0%";
-  //Make editors height 5% which has labels and buttons
-  let allEditors = document.getElementById("editors");
-  allEditors.style.height = "5%";
-  allEditors.style.width = "100%";
-}
-function maximizeIFrame() {
-  //Going in reverse order from maximizeFrame() to reset all elements to their original dimensions
-  let editors = document.getElementById("editors");
-  editors.style.height = "50%";
-  editors.style.width = "100%";
-  let htmlEditor = document.getElementById("htmlEditor");
-  htmlEditor.style.height = "90%";
-  htmlEditor.style.width = "32%";
-  let cssEditor = document.getElementById("cssEditor");
-  cssEditor.style.height = "90%";
-  cssEditor.style.width = "32%";
-  let jsEditor = document.getElementById("jsEditor");
-  jsEditor.style.height = "90%";
-  jsEditor.style.width = "32%";
-  var iframe = document.getElementById("iframe");
-  iframe.style.height = "50%";
-  iframe.style.width = "100%";
-}
-
 //Download Code File
 function downloadCode() {
    //1.Create a blob
@@ -193,6 +154,12 @@ function mostrarHTML(){
   let htmlEditor = document.getElementById("htmlEditor");
   let cssEditor = document.getElementById("cssEditor");
   let jsEditor = document.getElementById("jsEditor");
+  let txt1 = document.getElementById("text1")
+  let txt2 = document.getElementById("text2")
+  let txt3 = document.getElementById("text3")
+  txt1.style.backgroundColor = "green"
+  txt2.style.backgroundColor = "#21222C"
+  txt3.style.backgroundColor = "#21222C"
   htmlEditor.style.display = "block";
   cssEditor.style.display = "none";
   jsEditor.style.display = "none";
@@ -202,6 +169,12 @@ function mostrarCSS(){
   let htmlEditor = document.getElementById("htmlEditor");
   let cssEditor = document.getElementById("cssEditor");
   let jsEditor = document.getElementById("jsEditor");
+  let txt1 = document.getElementById("text1")
+  let txt2 = document.getElementById("text2")
+  let txt3 = document.getElementById("text3")
+  txt1.style.backgroundColor = "#21222C"
+  txt2.style.backgroundColor = "green"
+  txt3.style.backgroundColor = "#21222C"
   htmlEditor.style.display = "none";
   cssEditor.style.display = "block";
   jsEditor.style.display = "none";
@@ -211,6 +184,12 @@ function mostrarJS(){
   let htmlEditor = document.getElementById("htmlEditor");
   let cssEditor = document.getElementById("cssEditor");
   let jsEditor = document.getElementById("jsEditor");
+  let txt1 = document.getElementById("text1")
+  let txt2 = document.getElementById("text2")
+  let txt3 = document.getElementById("text3")
+  txt1.style.backgroundColor = "#21222C"
+  txt2.style.backgroundColor = "#21222C"
+  txt3.style.backgroundColor = "green"
   htmlEditor.style.display = "none";
   cssEditor.style.display = "none";
   jsEditor.style.display = "block";
